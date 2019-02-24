@@ -1,5 +1,0 @@
-email = 'email@gmail.com'
-password = 'password'
-send_to = 'email@gmail.com'
-subject = 'Бот'
-message = 'Проверь бота'
