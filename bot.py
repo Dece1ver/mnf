@@ -11,7 +11,7 @@ input('Расположить все как надо и Enter')
 with mss.mss() as sct:
     # Part of the screen to capture
     restart_screen = {"top": 115, "left": 65, "width": 5, "height": 5}
-    monitor = {"top": 165, "left": 197, "width": 288, "height": 155}
+    monitor = {"top": 115, "left": 197, "width": 288, "height": 145}
     monitor_center = int(monitor['width']/2)
     restart_img = numpy.array(sct.grab(restart_screen))
     restart_img = cv2.cvtColor(restart_img, cv2.COLOR_BGR2GRAY)
@@ -32,8 +32,10 @@ with mss.mss() as sct:
                 current_scr = cv2.cvtColor(current_scr, cv2.COLOR_BGR2GRAY)
                 time.sleep(1)           
         if numpy.array_equal(current_scr, restart_img):
-            pyautogui.click(425,454)
-            pyautogui.click(425,464)
+            pyautogui.click(425,390)
+            pyautogui.click(425,400)
+            pyautogui.click(425,415)
+            # pyautogui.click(425,435)
             pyautogui.moveTo(400, monitor_center)
             time.sleep(2)
             times_list.append(round(time.time()-start_time-9, 1))
@@ -55,8 +57,10 @@ with mss.mss() as sct:
                 elif face_center[0] > monitor_center:
                     pyautogui.move(monitor_center-face_center[0], 0)
             cv2.imshow("OpenCV/Numpy normal", gimg)
-            print(f"FPS: [{1 / (time.time() - last_time):>-05.2f}] Time: [{time.time()-start_time-1.5:>-05.2f}] Last games: {times_list}", end = '\r')
-
+            try:
+                print(f"FPS: [{1 / (time.time() - last_time):>-05.2f}] Time: [{time.time()-start_time-1.5:>-05.2f}] Last games: {times_list}", end = '\r')
+            except ZeroDivisionError as e:
+                pass
             if cv2.waitKey(25) & 0xFF == ord("q"):
                 cv2.destroyAllWindows()
                 break
